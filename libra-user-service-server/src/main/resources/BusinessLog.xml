@@ -1,0 +1,55 @@
+<included>
+
+    <variable name="maxHistory" value="3"/>
+    <variable name="queueSize" value="256"/>
+    <variable name="detailLayout" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} | %msg%n"/>
+
+    <!--LOGGER.SOURCE.REDIS.SERVICE-->
+    <appender name="LOGGER.SOURCE.REDIS.SERVICE.INFO.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/source/redis/${server_name}-info.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/source/redis/${server_name}-info-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${infoMixLevel:-DEBUG}</minLevel>
+                <maxLevel>${infoMaxLevel:-INFO}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <appender name="LOGGER.SOURCE.REDIS.SERVICE.ERROR.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/source/redis/${server_name}-error.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/source/redis/${server_name}-error-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${errorMixLevel:-WARN}</minLevel>
+                <maxLevel>${errorMaxLevel:-ERROR}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <logger name="LOGGER.SOURCE.REDIS.SERVICE" additivity="false">
+        <appender-ref ref="LOGGER.SOURCE.REDIS.SERVICE.INFO.APPENDER"/>
+        <appender-ref ref="LOGGER.SOURCE.REDIS.SERVICE.ERROR.APPENDER"/>
+    </logger>
+
+</included>

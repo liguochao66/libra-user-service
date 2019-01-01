@@ -1,0 +1,17 @@
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 配置 -->
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="rest" server="tomcat" port="8080" contextpath="rest"/>
+    <dubbo:provider timeout="50000" threadpool="fixed" threads="500" accepts="1000"/>
+
+    <!-- 服务 -->
+    <dubbo:service interface="com.struggle.libra.user.service.partner.IPartnerService" ref="partnerService" protocol="rest"/>
+
+</beans>
