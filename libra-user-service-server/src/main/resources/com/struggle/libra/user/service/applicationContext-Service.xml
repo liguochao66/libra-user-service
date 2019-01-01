@@ -12,6 +12,7 @@
     <dubbo:provider timeout="50000" threadpool="fixed" threads="500" accepts="1000"/>
 
     <!-- 服务 -->
-    <dubbo:service interface="com.struggle.libra.user.service.partner.IPartnerService" ref="partnerService" protocol="rest,dubbo"/>
+    <dubbo:service interface="com.struggle.libra.user.service.user.IUserService" ref="userService" protocol="rest,dubbo"/>
+    <dubbo:service interface="com.struggle.libra.user.service.register.IRegisterService" ref="registerService" protocol="rest"/>
 
 </beans>
