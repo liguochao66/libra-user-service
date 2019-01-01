@@ -6,12 +6,9 @@
 
     <!-- 配置 -->
     <dubbo:application name="${dubbo.application.name}"/>
-    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>
     <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
-    <dubbo:protocol name="rest" server="tomcat" port="8080" contextpath="rest"/>
-    <dubbo:provider timeout="50000" threadpool="fixed" threads="500" accepts="1000"/>
 
     <!-- 服务 -->
-    <dubbo:service interface="com.struggle.libra.user.service.partner.IPartnerService" ref="partnerService" protocol="rest,dubbo"/>
+    <dubbo:reference interface="com.struggle.libra.user.service.partner.IPartnerService" id="partnerService"/>
 
 </beans>

@@ -11,6 +11,18 @@
     <artifactId>libra-user-service-client</artifactId>
     <dependencies>
 
+        <!-- 运行组件 -->
+        <dependency>
+            <groupId>com.yueke.gemini</groupId>
+            <artifactId>frame-dubbo</artifactId>
+            <version>1.0.5-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yueke.gemini</groupId>
+            <artifactId>common-curator</artifactId>
+            <version>1.0.5-SNAPSHOT</version>
+        </dependency>
+
         <!-- 内部引用 -->
         <dependency>
             <groupId>com.struggle.libra</groupId>
