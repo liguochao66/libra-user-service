@@ -1,5 +1,6 @@
-package com.struggle.libra.user.service.entities.user;
+package com.struggle.libra.user.service.entities.model.user;
 
+import com.alibaba.fastjson.JSON;
 import com.yueke.gemini.common.data.mongo.entities.MongoData;
 
 public class UserInfo extends MongoData {
@@ -33,14 +34,27 @@ public class UserInfo extends MongoData {
     /**
      * 来源
      */
-    private String sourceId;
+    private String usi;
 
-    public String getSourceId() {
-        return sourceId;
+    public String getUsi() {
+        return usi;
     }
 
-    public void setSourceId(String sourceId) {
-        this.sourceId = sourceId;
+    public void setUsi(String usi) {
+        this.usi = usi;
+    }
+
+    /**
+     * 三方
+     */
+    private String upi;
+
+    public String getUpi() {
+        return upi;
+    }
+
+    public void setUpi(String upi) {
+        this.upi = upi;
     }
 
     /**
@@ -67,5 +81,10 @@ public class UserInfo extends MongoData {
 
     public void setDeleteStatus(short deleteStatus) {
         this.deleteStatus = deleteStatus;
+    }
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
     }
 }

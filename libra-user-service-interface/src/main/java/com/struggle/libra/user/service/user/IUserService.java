@@ -1,6 +1,6 @@
 package com.struggle.libra.user.service.user;
 
-import com.struggle.libra.user.service.entities.user.UserInfo;
+import com.struggle.libra.user.service.entities.model.user.UserInfo;
 
 /**
  * @author james.li

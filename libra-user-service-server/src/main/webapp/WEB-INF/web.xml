@@ -4,13 +4,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-    <!-- 应用监听 -->
+    <!-- 监听设置 -->
     <listener>
         <listener-class>com.alibaba.dubbo.remoting.http.servlet.BootstrapListener</listener-class>
     </listener>
     <listener>
-        <listener-class>com.yueke.gemini.common.frame.spring.mvc.listener.DefaultContextLoaderListener</listener-class>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
+
+    <!-- 运行参数 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:com/struggle/libra/user/service/applicationContext.xml</param-value>
+    </context-param>
+
+    <!-- 缓存设置 -->
+    <session-config>
+        <session-timeout>3000</session-timeout>
+    </session-config>
 
     <!-- 请求转换 -->
     <filter>
@@ -22,24 +33,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- 字符过滤 -->
-    <filter>
-        <filter-name>characterEncodingFilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>characterEncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
+    <!-- EASY-REST -->
     <servlet>
         <servlet-name>dubbo</servlet-name>
         <servlet-class>com.alibaba.dubbo.remoting.http.servlet.DispatcherServlet</servlet-class>
@@ -49,10 +43,4 @@
         <servlet-name>dubbo</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
-
-    <!-- 运行参数 -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:com/struggle/libra/user/service/applicationContext.xml</param-value>
-    </context-param>
 </web-app>

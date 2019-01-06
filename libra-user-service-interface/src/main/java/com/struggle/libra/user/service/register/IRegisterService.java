@@ -1,24 +1,29 @@
 package com.struggle.libra.user.service.register;
 
-import com.struggle.libra.user.service.entities.device.DeviceInfo;
-import com.struggle.libra.user.service.entities.partner.PartnerInfo;
-import com.struggle.libra.user.service.entities.user.UserInfo;
+import com.struggle.libra.user.service.entities.model.partner.PartnerInfo;
+import com.struggle.libra.user.service.entities.model.user.UserInfo;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public interface IRegisterService {
 
     /**
      * 匿名注册
      *
-     * @param info 设备注册
+     * @param request  应用请求上下文
+     * @param response 应用响应上下文
      * @return 用户信息
      */
-    UserInfo registerByDeviceInfo(DeviceInfo info);
+    UserInfo registerByDeviceInfo(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 显示注册
      *
-     * @param info 三方信息
+     * @param info     三方信息
+     * @param request  应用请求上下文
+     * @param response 应用响应上下文
      * @return 用户信息
      */
-    UserInfo registerByPartnerInfo(PartnerInfo info);
+    UserInfo registerByPartnerInfo(PartnerInfo info, HttpServletRequest request, HttpServletResponse response);
 }

@@ -16,13 +16,13 @@
         <property name="dataSource" ref="druidDataSource"/>
     </bean>
     <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
-        <property name="url" value="${source.mysqldruid.service.url}" />
-        <property name="username" value="${source.mysqldruid.service.userName}" />
-        <property name="password" value="${source.mysqldruid.service.passWord}" />
-        <property name="driverClassName" value="${source.mysqldruid.service.className}" />
-        <property name="maxActive" value="${source.mysqldruid.service.connection.max.active}" />
-        <property name="initialSize" value="${source.mysqldruid.service.connection.min.active}" />
-        <property name="maxWait" value="${source.mysqldruid.service.connection.max.wait}" />
+        <property name="url" value="${source.mysql.druid.service.url}" />
+        <property name="username" value="${source.mysql.druid.service.userName}" />
+        <property name="password" value="${source.mysql.druid.service.passWord}" />
+        <property name="driverClassName" value="${source.mysql.druid.service.className}" />
+        <property name="maxActive" value="${source.mysql.druid.service.connection.max.active}" />
+        <property name="initialSize" value="${source.mysql.druid.service.connection.min.active}" />
+        <property name="maxWait" value="${source.mysql.druid.service.connection.max.wait}" />
         <property name="timeBetweenEvictionRunsMillis" value="60000" />
         <property name="minEvictableIdleTimeMillis" value="300000" />
         <property name="poolPreparedStatements" value="true"/>
@@ -34,4 +34,35 @@
         <property name="dataSource" ref="druidDataSource"/>
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 缓存集群 -->
+    <bean id="codisFactory" class="com.yueke.gemini.common.data.codis.CodisFactory">
+        <constructor-arg name="connectConfig">
+            <bean class="com.yueke.gemini.common.data.codis.entities.ConnectConfig">
+                <property name="address" value="${source.redis.service.list}"/>
+                <property name="passWord" value="${source.redis.service.auth}"/>
+                <property name="connectionTimeout" value="${source.redis.service.time}"/>
+                <property name="database" value="0"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="poolConfig">
+            <bean class="redis.clients.jedis.JedisPoolConfig">
+                <property name="maxIdle" value="200"/>
+                <property name="maxTotal" value="1000"/>
+                <property name="maxWaitMillis" value="10000"/>
+                <property name="testOnBorrow" value="true"/>
+                <property name="testOnReturn" value="true"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <!-- 分布式锁 -->
+    <bean id="distributedLock" class="com.yueke.gemini.common.locker.base.DistributedLock">
+        <constructor-arg name="locker">
+            <bean class="com.yueke.gemini.common.locker.codis.locker.CodisLocker">
+                <constructor-arg name="codisFactory" ref="codisFactory"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="namespace" value="taurus-meta-service"/>
+    </bean>
 </beans>

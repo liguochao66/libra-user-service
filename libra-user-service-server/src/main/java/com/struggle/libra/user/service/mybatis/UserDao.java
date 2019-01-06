@@ -1,6 +1,6 @@
 package com.struggle.libra.user.service.mybatis;
 
-import com.struggle.libra.user.service.entities.user.UserInfo;
+import com.struggle.libra.user.service.entities.model.user.UserInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

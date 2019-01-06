@@ -4,6 +4,102 @@
     <variable name="queueSize" value="256"/>
     <variable name="detailLayout" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} | %msg%n"/>
 
+    <!--LOGGER.USER.SERVICE-->
+    <appender name="LOGGER.USER.SERVICE.INFO.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/user/${server_name}-info.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/user/${server_name}-info-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${infoMixLevel:-DEBUG}</minLevel>
+                <maxLevel>${infoMaxLevel:-INFO}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <appender name="LOGGER.USER.SERVICE.ERROR.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/user/${server_name}-error.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/user/${server_name}-error-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${errorMixLevel:-WARN}</minLevel>
+                <maxLevel>${errorMaxLevel:-ERROR}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <logger name="LOGGER.USER.SERVICE" additivity="false">
+        <appender-ref ref="LOGGER.USER.SERVICE.INFO.APPENDER"/>
+        <appender-ref ref="LOGGER.USER.SERVICE.ERROR.APPENDER"/>
+    </logger>
+
+    <!--LOGGER.SOURCE.SERVICE-->
+    <appender name="LOGGER.SOURCE.SERVICE.INFO.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/source/${server_name}-info.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/source/${server_name}-info-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${infoMixLevel:-DEBUG}</minLevel>
+                <maxLevel>${infoMaxLevel:-INFO}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <appender name="LOGGER.SOURCE.SERVICE.ERROR.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/source/${server_name}-error.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/source/${server_name}-error-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${errorMixLevel:-WARN}</minLevel>
+                <maxLevel>${errorMaxLevel:-ERROR}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <logger name="LOGGER.SOURCE.SERVICE" additivity="false">
+        <appender-ref ref="LOGGER.SOURCE.SERVICE.INFO.APPENDER"/>
+        <appender-ref ref="LOGGER.SOURCE.SERVICE.ERROR.APPENDER"/>
+    </logger>
+
     <!--LOGGER.SOURCE.REDIS.SERVICE-->
     <appender name="LOGGER.SOURCE.REDIS.SERVICE.INFO.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
         <queueSize>${queueSize}</queueSize>
@@ -50,6 +146,102 @@
     <logger name="LOGGER.SOURCE.REDIS.SERVICE" additivity="false">
         <appender-ref ref="LOGGER.SOURCE.REDIS.SERVICE.INFO.APPENDER"/>
         <appender-ref ref="LOGGER.SOURCE.REDIS.SERVICE.ERROR.APPENDER"/>
+    </logger>
+
+    <!--LOGGER.SOURCE.DATA.SERVICE-->
+    <appender name="LOGGER.SOURCE.DATA.SERVICE.INFO.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/source/data/${server_name}-info.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/source/data/${server_name}-info-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${infoMixLevel:-DEBUG}</minLevel>
+                <maxLevel>${infoMaxLevel:-INFO}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <appender name="LOGGER.SOURCE.DATA.SERVICE.ERROR.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/source/data/${server_name}-error.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/source/data/${server_name}-error-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${errorMixLevel:-WARN}</minLevel>
+                <maxLevel>${errorMaxLevel:-ERROR}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <logger name="LOGGER.SOURCE.DATA.SERVICE" additivity="false">
+        <appender-ref ref="LOGGER.SOURCE.DATA.SERVICE.INFO.APPENDER"/>
+        <appender-ref ref="LOGGER.SOURCE.DATA.SERVICE.ERROR.APPENDER"/>
+    </logger>
+
+    <!--LOGGER.CONTEXT.SERVICE-->
+    <appender name="LOGGER.CONTEXT.SERVICE.INFO.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/context/${server_name}-info.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/context/${server_name}-info-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${infoMixLevel:-DEBUG}</minLevel>
+                <maxLevel>${infoMaxLevel:-INFO}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <appender name="LOGGER.CONTEXT.SERVICE.ERROR.APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>${queueSize}</queueSize>
+        <discardingThreshold >0</discardingThreshold>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Encoding>UTF-8</Encoding>
+            <File>${server_log_home}/context/${server_name}-error.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${server_log_home}/context/${server_name}-error-%d{yyyyMMdd}.gz</FileNamePattern>
+                <maxHistory>${maxHistory}</maxHistory>
+            </rollingPolicy>
+            <filter class="com.caishi.capricorn.logback.filter.LevelRangeFilter">
+                <minLevel>${errorMixLevel:-WARN}</minLevel>
+                <maxLevel>${errorMaxLevel:-ERROR}</maxLevel>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${detailLayout}</pattern>
+            </encoder>
+        </appender>
+    </appender>
+    <logger name="LOGGER.CONTEXT.SERVICE" additivity="false">
+        <appender-ref ref="LOGGER.CONTEXT.SERVICE.INFO.APPENDER"/>
+        <appender-ref ref="LOGGER.CONTEXT.SERVICE.ERROR.APPENDER"/>
     </logger>
 
     <!--LOGGER.REGISTER.SERVICE-->
@@ -99,5 +291,4 @@
         <appender-ref ref="LOGGER.REGISTER.SERVICE.INFO.APPENDER"/>
         <appender-ref ref="LOGGER.REGISTER.SERVICE.ERROR.APPENDER"/>
     </logger>
-
 </included>

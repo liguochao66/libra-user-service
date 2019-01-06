@@ -1,10 +1,22 @@
-package com.struggle.libra.user.service.entities.partner;
+package com.struggle.libra.user.service.entities.model.partner;
 
 import com.alibaba.fastjson.JSON;
-import com.struggle.libra.user.service.entities.device.DeviceInfo;
 import com.yueke.gemini.common.data.mongo.entities.MongoData;
 
 public class PartnerInfo extends MongoData {
+
+    /**
+     * 三方编号
+     */
+    private String pi;
+
+    public String getPi() {
+        return pi;
+    }
+
+    public void setPi(String pi) {
+        this.pi = pi;
+    }
 
     /**
      * 三方类型
@@ -95,19 +107,6 @@ public class PartnerInfo extends MongoData {
 
     public void setPortrait(String portrait) {
         this.portrait = portrait;
-    }
-
-    /**
-     * 设备
-     */
-    private DeviceInfo deviceInfo;
-
-    public DeviceInfo getDeviceInfo() {
-        return deviceInfo;
-    }
-
-    public void setDeviceInfo(DeviceInfo deviceInfo) {
-        this.deviceInfo = deviceInfo;
     }
 
     @Override

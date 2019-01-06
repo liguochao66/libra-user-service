@@ -1,4 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.struggle.libra.user.service.mybatis.UserDao">
+
+    <!-- 新增用户详情信息 -->
+    <insert id="insert" parameterType="com.struggle.libra.user.service.entities.model.user.UserInfo">
+        INSERT INTO user
+        (
+          id,
+          nickName,
+          portrait,
+          usi,
+          upi
+        )
+        VALUES
+        (
+          #{info.id},
+          #{info.nickName},
+          #{info.portrait},
+          #{info.usi},
+          #{info.upi}
+        )
+    </insert>
+
+    <!-- 更新用户相信信息 -->
+    <update id="update">
+         UPDATE
+          user
+        SET
+          nickName=#{info.nickName},
+          sourceId=#{info.sourceId},
+          portrait=#{info.portrait},
+          modifyTime=CURRENT_TIME()
+        WHERE
+          id=#{userInfo.id}
+    </update>
+
+    <!-- 根据用户编号查询用户详情信息 -->
+    <select id="getUserDetailInfo" resultType="com.struggle.libra.user.service.entities.model.user.UserInfo">
+        select * from user where id=#{id}
+    </select>
 </mapper>

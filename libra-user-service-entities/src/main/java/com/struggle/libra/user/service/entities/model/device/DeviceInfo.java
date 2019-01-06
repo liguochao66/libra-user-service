@@ -1,4 +1,4 @@
-package com.struggle.libra.user.service.entities.device;
+package com.struggle.libra.user.service.entities.model.device;
 
 import com.alibaba.fastjson.JSON;
 import com.yueke.gemini.common.data.mongo.entities.MongoData;
